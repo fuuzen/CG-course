@@ -1,0 +1,11 @@
+CompileFlags:
+  Add: 
+    - "-IC:/Users/YQ/Desktop/CG/extern/glew-2.1.0/include/"
+    - "-IC:/Users/YQ/Desktop/CG/extern/qt-6.8.0/6.8.0/mingw_64/include/"
+    - "-std=c++17"
+
+# "clangd.fallbackFlags": [
+#   "-IC:/Users/YQ/Desktop/CG/extern/glew-2.1.0/include",
+#   "-IC:/Users/YQ/Desktop/CG/extern/qt-6.8.0/6.8.0/mingw_64/include",
+#   "-std=c++17"
+# ]

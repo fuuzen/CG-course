@@ -1,0 +1,50 @@
+cmake_minimum_required(VERSION 3.14)
+
+project(CG-HW2 LANGUAGES CXX)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+
+set(QT_PATH ../../qt-6.8.0)
+set(GLEW_PATH ../../glew-2.1.0)
+set(QT6_DIR "${QT_PATH}/6.8.0/mingw_64/lib/cmake/Qt6")
+
+find_package(Qt6 REQUIRED COMPONENTS Core Gui OpenGL OpenGLWidgets)
+
+include_directories(
+    "./myglwidget"
+    "${GLEW_PATH}/include"
+    "${QT_PATH}/6.8.0/mingw_64/include"
+)
+
+link_directories(
+    "${GLEW_PATH}/lib/Release/x64"
+    "${QT_PATH}/6.8.0/mingw_64/lib"
+)
+
+set(SOURCES
+    main.cpp
+    myglwidget/myglwidget.cpp
+    utils.cpp
+)
+
+set(HEADERS
+    myglwidget/myglwidget.h
+    utils.h
+)
+
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+target_link_libraries(${PROJECT_NAME}
+    Qt6::Core
+    Qt6::Gui
+    Qt6::OpenGL
+    Qt6::OpenGLWidgets
+    opengl32
+    glew32
+    glu32
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/glm")
