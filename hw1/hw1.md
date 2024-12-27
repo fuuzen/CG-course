@@ -1,11 +1,11 @@
 <div class="cover" style="page-break-after:always;font-family:方正公文仿宋;width:100%;height:100%;border:none;margin: 0 auto;text-align:center;">
     <div style="width:70%;margin: 0 auto;height:0;padding-bottom:10%;">
         </br>
-        <img src="./sysu-name.jpg" alt="校名" style="width:100%;"/>
+        <img src="../sysu-name.jpg" alt="校名" style="width:100%;"/>
     </div>
     </br></br></br></br>
     <div style="width:60%;margin: 0 auto;height:0;padding-bottom:40%;">
-        <img src="./sysu.jpg" alt="校徽" style="width:100%;"/>
+        <img src="../sysu.jpg" alt="校徽" style="width:100%;"/>
 	</div>
 </br></br></br></br></br></br></br></br></br>
     <span style="font-family:华文黑体Bold;text-align:center;font-size:20pt;margin: 10pt auto;line-height:30pt;">本科生实验报告</span>
@@ -36,6 +36,7 @@
     </tbody>              
     </table>
 </div>
+
 
 <!-- 注释语句：导出PDF时会在这里分页 -->
 

@@ -54,10 +54,10 @@ void MyGLWidget::bresenham(FragmentAttr& start, FragmentAttr& end) {
 	int y_step = y1 < y2 ? 1 : -1;
 	int err = (dx > dy ? dx : -dy) / 2;
 
-	float dz_half = (end.z - start.z) / 2;
-	// z 在 x,y 轴方向上的分量的步长，分量就取一半
-	float z_step_x = dz_half / dx;
-	float z_step_y = dz_half / dy;
+	float dz = end.z - start.z;
+	// z 在 x,y 轴方向上的分量的步长
+	float z_step_x = dz / dx;
+	float z_step_y = dz / dy;
 	float z = static_cast<float>(start.z);
 	
 	while (x1 != x2 || y1 != y2) {
