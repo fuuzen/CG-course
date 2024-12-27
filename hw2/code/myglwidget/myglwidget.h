@@ -60,7 +60,7 @@ private:
 
     // switch
     int obj = 0;           // load up to 5 objs
-    int line_mode = 0;     // 0:dda, 1:bresneham, 2:none
+    int line_mode = 0;     // 0:dda, 1:bresneham,
     int shading_mode = 0;  // 0:gouraud, 1:phong, 2:blinn_phong, 3:pure_color
 
     int WindowSizeH = 0;

@@ -56,7 +56,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *e) {
 		case Qt::Key_0: scene_id = 0; update(); break;
 		case Qt::Key_1: scene_id = 1; update(); break;
 		case Qt::Key_6: obj = (obj + 1) % 5; update(); break;
-		case Qt::Key_7: line_mode = (line_mode + 1) % 3; update(); break;
+		case Qt::Key_7: line_mode = (line_mode + 1) % 2; update(); break;
 		case Qt::Key_8: shading_mode = (shading_mode + 1) % 4; update(); break;
 		case Qt::Key_9: degree += 5; update(); break;
 	}
