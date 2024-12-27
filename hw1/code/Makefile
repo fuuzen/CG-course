@@ -5,14 +5,23 @@ export MAKE=${QT_PATH}/Tools/MinGW/bin/make.exe
 export CXX=${QT_PATH}/Tools/MinGW/bin/g++.exe
 export CC=${QT_PATH}/Tools/MinGW/bin/gcc.exe
 
-all:
-	${CMAKE} -S . -B build -G "MinGW Makefiles" -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC}
-	cd build && ${MAKE} -j4
-
 # 使用 Visual Studio 的构建工具
 export VS_PATH=/d/Program Files/Microsoft Visual Studio/2022/Community
 export VS_GEN="Visual Studio 17 2022"
 
+all: build
+
+build:
+	${CMAKE} -S . -B build -G "MinGW Makefiles" -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC}
+	cd build && ${MAKE} -j4
+
 sln:
 	"${VS_PATH}/VC/Auxiliary/Build/vcvarsall.bat" x64
 	cmake -S . -B build_sln -A "x64" -G ${VS_GEN}
+
+run: build
+	build/CG-HW2.exe
+
+clean:
+	rm -rf build
+	rm -rf build_sln

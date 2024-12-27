@@ -2,3 +2,4 @@ build
 build_sln
 glew-2.1.0
 qt-6.8.0
+*.exe

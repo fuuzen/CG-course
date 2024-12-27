@@ -1,6 +1,0 @@
-CompileFlags:
-  Add: 
-    - "-I./**"
-    - "-I../../glew-2.1.0/include/"
-    - "-I../../qt-6.8.0/6.8.0/mingw_64/include/"
-    - "-std=c++17"

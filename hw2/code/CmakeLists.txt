@@ -3,20 +3,21 @@ cmake_minimum_required(VERSION 3.14)
 project(CG-HW2 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w -Wall")
 
 set(QT_PATH ../../qt-6.8.0)
 set(GLEW_PATH ../../glew-2.1.0)
 set(QT6_DIR "${QT_PATH}/6.8.0/mingw_64/lib/cmake/Qt6")
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui OpenGL OpenGLWidgets)
+find_package(Qt6 REQUIRED Core Gui OpenGL OpenGLWidgets)
 
 include_directories(
     "./myglwidget"
     "${GLEW_PATH}/include"
     "${QT_PATH}/6.8.0/mingw_64/include"
+    "./glm"
 )
 
 link_directories(
@@ -27,6 +28,12 @@ link_directories(
 set(SOURCES
     main.cpp
     myglwidget/myglwidget.cpp
+    myglwidget/blinn_phong.cpp
+    myglwidget/bresenham.cpp
+    myglwidget/dda.cpp
+    myglwidget/edge_walking.cpp
+    myglwidget/gouraud.cpp
+    myglwidget/phong.cpp
     utils.cpp
 )
 
@@ -46,5 +53,3 @@ target_link_libraries(${PROJECT_NAME}
     glew32
     glu32
 )
-
-target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/glm")

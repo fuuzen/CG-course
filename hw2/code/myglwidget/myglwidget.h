@@ -17,6 +17,7 @@
 #include "QtOpenGLWidgets/QOpenGLWidget"
 #include "QtGui/QOpenGLFunctions"
 #include "../utils.h"
+#include <chrono>
 
 #define MAX_Z_BUFFER 99999999.0f
 #define MIN_FLOAT 1e-10f
@@ -39,18 +40,32 @@ protected:
 private:
     void scene_0();
     void scene_1();
+
     void drawTriangle(Triangle triangle);
-    int edge_walking();
-    void bresenham(FragmentAttr& start, FragmentAttr& end, int id);
+    // 实现三角形的光栅化算法
+    void dda(FragmentAttr& start, FragmentAttr& end);
+    void bresenham(FragmentAttr& start, FragmentAttr& end);
+    void bresenhamThicker(FragmentAttr a, FragmentAttr b, int thickness);
+    int edge_walking(TransformedTriangle const & tri);
+
+    // 实现光照、着色
+    void gouraud(int x, int y, TransformedTriangle const & tri);
+    void phong(int x, int y, TransformedTriangle const & tri);
+    void blinn_phong(int x, int y, TransformedTriangle const & tri);
+
     void clearBuffer(vec3* now_render_buffer);
     void clearBuffer(int* now_buffer);
     void clearZBuffer(float* now_buffer);
     void resizeBuffer(int newW, int newH);
-    vec3 PhoneShading(FragmentAttr& nowPixelResult);
+
+    // switch
+    int obj = 0;           // load up to 5 objs
+    int line_mode = 0;     // 0:dda, 1:bresneham, 2:none
+    int shading_mode = 0;  // 0:gouraud, 1:phong, 2:blinn_phong, 3:pure_color
 
     int WindowSizeH = 0;
     int WindowSizeW = 0;
-    int scene_id;
+    int scene_id = 0;
     int degree = 0;
 
     // buffers
@@ -68,7 +83,14 @@ private:
     mat4 projMatrix;
     vec3 lightPosition;
 
+    float ambientStrength = 0.1f;
+    float specularStrength = 2.0f;
+    vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
+    vec3 objectColor = vec3(0.6f, 0.6f, 0.3f);
 
+    // timing
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
 };
 
 #endif // MYGLWIDGET_H

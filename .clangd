@@ -4,6 +4,7 @@ CompileFlags:
     - "-IC:/Users/YQ/Desktop/CG/extern/qt-6.8.0/6.8.0/mingw_64/include/"
     - "-std=c++17"
 
+# clangd 插件【在WINDOWS上】这个文件没用...得修改 VSCode 配置，而且还得是完整路径，这是我电脑上的：
 # "clangd.fallbackFlags": [
 #   "-IC:/Users/YQ/Desktop/CG/extern/glew-2.1.0/include",
 #   "-IC:/Users/YQ/Desktop/CG/extern/qt-6.8.0/6.8.0/mingw_64/include",

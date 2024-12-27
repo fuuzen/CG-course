@@ -35,6 +35,12 @@ struct Triangle {
     vec3 triangleNormals[3];
 };
 
+
+struct TransformedTriangle {
+    FragmentAttr lines[3];
+};
+
+
 struct Model {
 
     int triangleCount;
@@ -129,6 +135,7 @@ struct Model {
     }
 };
 
-FragmentAttr getLinearInterpolation(const FragmentAttr& a, FragmentAttr& b, int x_position);
+FragmentAttr getLinearInterpolationByX(const FragmentAttr& a, const FragmentAttr& b, const int x_position);
+FragmentAttr getLinearInterpolationByY(const FragmentAttr& a, const FragmentAttr& b, const int y_position);
 void renderWithTexture(vec3* render_buffer, int w, int h);
 #endif // UTILS.H
