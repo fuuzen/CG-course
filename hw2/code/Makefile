@@ -15,15 +15,15 @@ all: build
 
 build:
 	${CMAKE} -S . -B build -G "MinGW Makefiles" -DCMAKE_CXX_COMPILER=${CXX} -DCMAKE_C_COMPILER=${CC}
-	cd build && ${MAKE} -j4
+	cd build && ${MAKE} -j8
 
 sln:
 	"${VS_PATH}/VC/Auxiliary/Build/vcvarsall.bat" x64
 	cmake -S . -B build_sln -A "x64" -G ${VS_GEN}
 
 run: build
-	cp build/CG-HW2.exe .
-	./CG-HW2.exe
+	cp build/CG-HW3.exe .
+	./CG-HW3.exe
 
 clean:
 	rm -rf build

@@ -7,90 +7,60 @@
 #include "GL/glew.h"
 #include "../glm/glm.hpp"
 #include "../glm/gtc/matrix_transform.hpp"
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-
 #endif
+
+#include <chrono>
+#include "../utils.h"
 #include "QtGui/QtGui"
 #include "QtOpenGLWidgets/QOpenGLWidget"
 #include "QtGui/QOpenGLFunctions"
-#include "../utils.h"
-#include <chrono>
+#include "QtOpenGL/QOpenGLFunctions_4_5_Core"  // newest version by the end of 2024
 
 #define MAX_Z_BUFFER 99999999.0f
 #define MIN_FLOAT 1e-10f
 
 using namespace glm;
 
-class MyGLWidget : public QOpenGLWidget{
-    Q_OBJECT
+struct Handles {
+  GLuint program;
+  GLuint VBO;
+  GLuint VAO;
+  GLsizei verticesCount;
+};
+
+class MyGLWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core {
+  Q_OBJECT
 
 public:
-    MyGLWidget(QWidget *parent = nullptr);
-    ~MyGLWidget();
+  MyGLWidget(QWidget *parent = nullptr);
+  ~MyGLWidget();
 
-protected:
-    void initializeGL() override;
-    void paintGL() override;
-    void resizeGL(int width, int height) override;
-    void keyPressEvent(QKeyEvent* e) override;
+protected:  // Implement QOpenGLWidget
+  void initializeGL() override;
+  void paintGL() override;
+  void resizeGL(int width, int height) override;
+  void keyPressEvent(QKeyEvent* e) override;
+
+  void draw();
 
 private:
-    void scene_0();
-    void scene_1();
+  // switch
+  int scene = 0;          // load up to 5 objs
+  int degree = 0;
+  int camDistance = 70; 
 
-    void drawTriangle(Triangle triangle);
-    // 实现三角形的光栅化算法
-    void dda(FragmentAttr& start, FragmentAttr& end);
-    void bresenham(FragmentAttr& start, FragmentAttr& end);
-    void bresenhamThicker(FragmentAttr a, FragmentAttr b, int thickness);
-    int edge_walking(TransformedTriangle const & tri);
+  Model objModel;
+  Handles objHandles;
 
-    // 实现光照、着色
-    void gouraud(int x, int y, TransformedTriangle const & tri);
-    void phong(int x, int y, TransformedTriangle const & tri);
-    void blinn_phong(int x, int y, TransformedTriangle const & tri);
+  Handles initShader(const char *vertexPath, const char *fragmentPath);
 
-    void clearBuffer(vec3* now_render_buffer);
-    void clearBuffer(int* now_buffer);
-    void clearZBuffer(float* now_buffer);
-    void resizeBuffer(int newW, int newH);
+  void loadBuffer(Model objModel, Handles & handles);
 
-    // switch
-    int obj = 0;           // load up to 5 objs
-    int line_mode = 0;     // 0:dda, 1:bresneham,
-    int shading_mode = 0;  // 0:gouraud, 1:phong, 2:blinn_phong, 3:pure_color
+  void drawObj(const Handles & handlers);
 
-    int WindowSizeH = 0;
-    int WindowSizeW = 0;
-    int scene_id = 0;
-    int degree = 0;
-
-    // buffers
-    vec3* render_buffer;
-    vec3* temp_render_buffer;
-    float* temp_z_buffer;
-    float* z_buffer;
-    vec2 offset;
-
-    Model objModel;
-
-    vec3 camPosition;
-    vec3 camLookAt;
-    vec3 camUp;
-    mat4 projMatrix;
-    vec3 lightPosition;
-
-    float ambientStrength = 0.1f;
-    float specularStrength = 2.0f;
-    vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
-    vec3 objectColor = vec3(0.6f, 0.6f, 0.3f);
-
-    // timing
-    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
-    std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
+  // timing
+  std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+  std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
 };
 
 #endif // MYGLWIDGET_H
